@@ -1,0 +1,83 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`can add new users - 2 1`] = `
+Array [
+  Object {
+    "op": "add",
+    "path": "/users/0",
+    "value": Object {
+      "avatar_url": "",
+      "blog": "http://aagenciasalvare.com.br",
+      "company": "",
+      "followers": 1,
+      "html_url": "https://github.com/jeefsilva",
+      "id": 2,
+      "location": "São Paulo",
+      "login": "jeefsilva",
+      "name": "Jefferson Silva",
+      "public_repos": 6,
+    },
+  },
+  Object {
+    "op": "replace",
+    "path": "/users/0/login",
+    "value": "roberto",
+  },
+]
+`;
+
+exports[`can add new users 1`] = `
+Object {
+  "users": Array [
+    Object {
+      "avatar_url": "",
+      "blog": "http://aagenciasalvare.com.br",
+      "company": "",
+      "followers": 1,
+      "html_url": "https://github.com/jeefsilva",
+      "id": 2,
+      "location": "São Paulo",
+      "login": "roberto",
+      "name": "Jefferson Silva",
+      "public_repos": 6,
+    },
+  ],
+}
+`;
+
+exports[`can add new users 2`] = `
+Array [
+  Object {
+    "users": Array [
+      Object {
+        "avatar_url": "",
+        "blog": "http://aagenciasalvare.com.br",
+        "company": "",
+        "followers": 1,
+        "html_url": "https://github.com/jeefsilva",
+        "id": 2,
+        "location": "São Paulo",
+        "login": "jeefsilva",
+        "name": "Jefferson Silva",
+        "public_repos": 6,
+      },
+    ],
+  },
+  Object {
+    "users": Array [
+      Object {
+        "avatar_url": "",
+        "blog": "http://aagenciasalvare.com.br",
+        "company": "",
+        "followers": 1,
+        "html_url": "https://github.com/jeefsilva",
+        "id": 2,
+        "location": "São Paulo",
+        "login": "roberto",
+        "name": "Jefferson Silva",
+        "public_repos": 6,
+      },
+    ],
+  },
+]
+`;
