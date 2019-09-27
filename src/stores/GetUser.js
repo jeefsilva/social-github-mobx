@@ -47,6 +47,5 @@ export const loadUsers = async () => {
   }
   localStorage.setItem("list_users", JSON.stringify(collection));
   collection = JSON.parse(localStorage.getItem("list_users"))
-  return collection
   //load dos dados da API do github
 };

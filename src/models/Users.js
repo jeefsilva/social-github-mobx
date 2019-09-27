@@ -1,16 +1,16 @@
 import { types, getParent, destroy } from "mobx-state-tree";
 
+
 export const User = types
   .model({
-    login: types.string,
-    avatar_url: "",
-    html_url: "",
-    name: types.string,
-    company: types.string,
-    blog: "",
-    location: types.string,
-    public_repos: types.number,
-    followers: types.number
+    "login": types.string,
+    "avatar_url": "",
+    "html_url": "",
+    "name": types.optional(types.maybeNull(types.string), null),
+    "blog": "",
+    "location": types.optional(types.maybeNull(types.string), null),
+    "public_repos": types.number,
+    "followers": types.number
   })
   .actions(self => ({
     changeLogin(newLogin) {
@@ -49,6 +49,9 @@ export const Users = types
   .actions(self => ({
     add(user) {
       self.users.push(user);
+    },
+    addUsers(user) {
+      self.users.push(...user)
     },
     remove(user) {
       destroy(user)

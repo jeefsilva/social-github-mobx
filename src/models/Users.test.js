@@ -41,8 +41,9 @@ it("can add new users - 2", () => {
   });
 
   userList.users[0].changeLogin("roberto");
+  userList.users[0].changeLogin("carlos");
 
-  expect(patches).toMatchSnapshot();
+  expect(getSnapshot).toMatchSnapshot();
 });
 
 it("can calculate the total of users", () => {
