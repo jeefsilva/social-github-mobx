@@ -25,7 +25,7 @@ class UserEntry extends Component {
     };
   }
 
-  pullUser = async () => {
+  pullUsers = async () => {
     var local = JSON.parse(localStorage.getItem("list_users"));
     if (local === null) {
       await loadUsers()
@@ -40,10 +40,9 @@ class UserEntry extends Component {
   };
 
   componentDidMount () {
-    this.pullUser()
-
- 
+    this.pullUsers()
   }
+
   render() {
     return (
       <div>
@@ -53,7 +52,6 @@ class UserEntry extends Component {
     );
   }
   onAdd = () => {
-    console.log(this.state.entry)
       this.props.userList.add(this.state.entry)
   }
 }

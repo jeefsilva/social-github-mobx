@@ -56,13 +56,6 @@ export const Users = types
     remove(user) {
       destroy(user)
     },
-    getUsers(user) {
-      window.fetch(`https://api.github.com/users/${user.login}`)
-      .then(response => response.json())
-      .then(users => {
-        alert(JSON.stringify(users))
-      })
-    }
   }))
   .views(self => ({
       get totalUser() {
