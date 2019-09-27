@@ -15,7 +15,6 @@ class UserView extends Component {
 
   render() {
     const { user } = this.props;
-    console.log(user);
     return this.state.isEditing ? (
       this.renderEditable()
     ) : (

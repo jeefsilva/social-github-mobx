@@ -3,7 +3,6 @@ import { types, getParent, destroy } from "mobx-state-tree";
 export const User = types
   .model({
     login: types.string,
-    id: types.number,
     avatar_url: "",
     html_url: "",
     name: types.string,
@@ -53,6 +52,13 @@ export const Users = types
     },
     remove(user) {
       destroy(user)
+    },
+    getUsers(user) {
+      window.fetch(`https://api.github.com/users/${user.login}`)
+      .then(response => response.json())
+      .then(users => {
+        alert(JSON.stringify(users))
+      })
     }
   }))
   .views(self => ({

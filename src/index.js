@@ -8,7 +8,7 @@ import { Users } from "./models/Users";
 
 import * as serviceWorker from "./serviceWorker";
 
-let initialState = {
+var initialState = {
   users: [
     {
       login: "roberto",
@@ -55,7 +55,7 @@ function renderApp() {
   ReactDOM.render(<App userList={userList} />, document.getElementById("root"));
 }
 
-renderApp();
+renderApp()
 
 if (module.hot) {
   module.hot.accept(["./components/App"], () => {

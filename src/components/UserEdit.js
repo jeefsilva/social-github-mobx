@@ -1,19 +1,10 @@
 import React, { Component } from "react"
 import { observer } from "mobx-react"
-import TextField from "@material-ui/core/TextField";
 
 class UserEdit extends Component {
     render() {
         const { user } = this.props
         return <div>
-            Login: <TextField label="Edit Login" value={user.login} onChange={this.onLoginChange}></TextField>
-            Id: <TextField label="Edit Id" value={user.id} onChange={this.onIdChange}></TextField>
-            Name: <TextField label="Edit Name" value={user.name} onChange={this.onNameChange}></TextField>
-            Company: <TextField label="Edit Company" value={user.company} onChange={this.onCompanyChange}></TextField>
-            Blog: <TextField label="Edit Blog" value={user.blog} onChange={this.onBlogChange}></TextField>
-            Location: <TextField label="Edit Location" value={user.location} onChange={this.onLocationChange}></TextField>
-            Public Repos: <TextField label="Edit Public Repos" value={user.public_repos} onChange={this.onPublicReposChange}></TextField>
-            Followers: <TextField label="Edit Followers" value={user.login} onChange={this.onLoginChange}></TextField>
         </div>
     }
     onLoginChange = event => {
