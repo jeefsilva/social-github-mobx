@@ -8,7 +8,20 @@ import { Users } from "./models/Users";
 
 import * as serviceWorker from "./serviceWorker";
 var initialState = {
-  users: []
+  users: [
+    {
+      login: "roberto",
+      id: 3,
+      avatar_url: "https://avatars0.githubusercontent.com/u/1?v=4",
+      html_url: "https://github.com/jeefsilva",
+      name: "Jefferson Silva",
+      company: "",
+      blog: "http://aagenciasalvare.com.br",
+      location: "São Paulo",
+      public_repos: 6,
+      followers: 1
+    },
+  ]
 };
 
 
@@ -18,6 +31,8 @@ let userList = Users.create(initialState);
 function renderApp() {
   ReactDOM.render(<App userList={userList} />, document.getElementById("root"));
 }
+
+console.log(userList)
 
 renderApp()
 

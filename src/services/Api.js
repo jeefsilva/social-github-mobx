@@ -11,10 +11,12 @@ export const loadProfile = async value => {
         password: "258webVOXUS"
       }
     });
+    var collection = JSON.parse(localStorage.getItem("list_users"));
+    collection.unshift(profiles.data)
+    localStorage.setItem("list_users", JSON.stringify(collection));
     localStorage.setItem("list_user", JSON.stringify(profiles.data));
   } catch {
     alert(`Usuário ${user} Inválido`);
-    localStorage.removeItem("list_user");
   }
   //load dos dados da API via input pelo nome de usuário
 };
