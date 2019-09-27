@@ -48,7 +48,7 @@ export const Users = types
   })
   .actions(self => ({
     add(user) {
-      self.users.push(user);
+      self.users.unshift(user);
     },
     addUsers(user) {
       self.users.push(...user)

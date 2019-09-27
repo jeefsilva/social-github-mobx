@@ -14,6 +14,7 @@ export const loadProfile = async value => {
     localStorage.setItem("list_user", JSON.stringify(profiles.data));
   } catch {
     alert(`Usuário ${user} Inválido`);
+    localStorage.removeItem("list_user");
   }
   //load dos dados da API via input pelo nome de usuário
 };
