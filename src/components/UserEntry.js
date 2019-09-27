@@ -3,7 +3,7 @@ import { observer } from "mobx-react";
 import Icon from "@material-ui/core/Icon";
 
 import UserEdit from "./UserEdit";
-import { loadUsers } from "../stores/GetUser";
+import { loadUsers } from "../services/Api";
 import { User } from "../models/Users";
 
 class UserEntry extends Component {
