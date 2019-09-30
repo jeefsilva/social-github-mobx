@@ -4,7 +4,7 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import styles from "../assets/app.module.scss";
 import { observer } from "mobx-react"
-import { loadProfile } from "../services/Api";
+
 
 class Header extends Component {
   constructor() {
@@ -13,25 +13,16 @@ class Header extends Component {
       value: ""
     }
     this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
   }
-
+  
   handleChange(event) {
     this.setState({ value: event.target.value });
   }
 
-  handleSubmit(event) {
-    event.preventDefault();
-    this.pullUser()
+  search(){
+    const termToSearch = this.state.value
+    this.props.userList.addApi(termToSearch)
   }
-
-  pullUser = async () => {
-    try {
-      await loadProfile(this.state.value) 
-      this.props.userList.add(JSON.parse(localStorage.getItem("list_user")))
-    } catch {
-    }
-    } 
 
   render() {
     return (
@@ -44,13 +35,14 @@ class Header extends Component {
                 <TextField
                   className={styles.userInput}
                   label="Add a user"
-                  value={this.state.value}
+                  value={this.value}
                   onChange={this.handleChange}
+                  ref={(c) => this.input = c}
                 ></TextField>
                 <Button
                   variant="contained"
                   className={styles.addButton}
-                  onClick={this.handleSubmit}
+                  onClick={this.search.bind(this)} 
                 >
                   Add
                 </Button>

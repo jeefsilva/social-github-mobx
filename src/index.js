@@ -2,12 +2,17 @@ import React from "react";
 import ReactDOM from "react-dom";
 import App from "./components/App";
 
-import { getSnapshot } from "mobx-state-tree";
+import { onSnapshot, destroy, getSnapshot } from "mobx-state-tree";
 
 import { Users } from "./models/Users";
 
 import * as serviceWorker from "./serviceWorker";
-var initialState = {
+
+const localStorageKey = "social-github-mobx";
+
+var initialState = localStorage.getItem(localStorageKey)
+? JSON.parse(localStorage.getItem(localStorageKey))
+: {
   users: [
     {
       login: "roberto",
@@ -16,35 +21,94 @@ var initialState = {
       html_url: "https://github.com/jeefsilva",
       name: "Jefferson Silva",
       company: "",
-      blog: "http://aagenciasalvare.com.br",
+      blog: "http://teste.com.br",
       location: "São Paulo",
       public_repos: 6,
       followers: 1
     },
+    {
+      login: "roberto",
+      id: 3,
+      avatar_url: "https://avatars0.githubusercontent.com/u/1?v=4",
+      html_url: "https://github.com/jeefsilva",
+      name: "Jefferson Silva",
+      company: "",
+      blog: "http://teste.com.br",
+      location: "São Paulo",
+      public_repos: 6,
+      followers: 1
+    },
+    {
+      login: "roberto",
+      id: 3,
+      avatar_url: "https://avatars0.githubusercontent.com/u/1?v=4",
+      html_url: "https://github.com/jeefsilva",
+      name: "Jefferson Silva",
+      company: "",
+      blog: "http://teste.com.br",
+      location: "São Paulo",
+      public_repos: 6,
+      followers: 1
+    },
+    {
+      login: "roberto",
+      id: 3,
+      avatar_url: "https://avatars0.githubusercontent.com/u/1?v=4",
+      html_url: "https://github.com/jeefsilva",
+      name: "Jefferson Silva",
+      company: "",
+      blog: "http://teste.com.br",
+      location: "São Paulo",
+      public_repos: 6,
+      followers: 1
+    }
   ]
 };
+
+let store;
+let snapshotListener;
+
+function createUserList(snapshot) {
+  // clean up snapshot listener
+  if (snapshotListener) snapshotListener();
+  // kill old store to prevent accidental use and run clean up hooks
+  if (store) destroy(store);
+
+  // create new one
+  store = Users.create(snapshot);
+
+  // connect local storage
+  snapshotListener = onSnapshot(store, snapshot =>
+    localStorage.setItem(localStorageKey, JSON.stringify(snapshot))
+  );
+
+  return store;
+}
 
 
 let userList = Users.create(initialState);
 
 
-function renderApp() {
-  ReactDOM.render(<App userList={userList} />, document.getElementById("root"));
+onSnapshot(userList, snapshot => {
+  localStorage.setItem("users_list", JSON.stringify(snapshot))
+})
+
+function renderApp(App, store) {
+  ReactDOM.render(<App userList={store} />, document.getElementById("root"));
 }
 
-console.log(userList)
+renderApp(App, createUserList(initialState));
 
-renderApp()
-
+// Connect HMR
 if (module.hot) {
-  module.hot.accept(["./components/App"], () => {
-    renderApp();
+  module.hot.accept(["./models/Users"], () => {
+    // Store definition changed, recreate a new one from old state
+    renderApp(App, createUserList(getSnapshot(store)));
   });
 
-  module.hot.accept(["./models/Users"], () => {
-    const snapshot = getSnapshot(userList);
-    userList = Users.create(snapshot);
-    renderApp();
+  module.hot.accept(["./components/App"], () => {
+    // Componenent definition changed, re-render app
+    renderApp(App, store);
   });
 }
 
