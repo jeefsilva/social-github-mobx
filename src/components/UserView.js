@@ -102,11 +102,13 @@ class UserView extends Component {
 
   renderEditable() {
     return (
-      <div className={styles.flexSpaceBetween}>
+      <Paper className={styles.card}>
         <UserEdit user={this.state.clone} />
-        <Icon onClick={this.onSaveEdit}>save</Icon>
-        <Icon onClick={this.onCancelEdit}>close</Icon>
-      </div>
+        <div className={`${styles.flexSpaceBetween} ${styles.editButton}`}>
+          <Icon onClick={this.onSaveEdit}>save</Icon>
+          <Icon onClick={this.onCancelEdit}>close</Icon>
+        </div>
+      </Paper>
     );
   }
 
