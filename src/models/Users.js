@@ -11,7 +11,7 @@ export const User = types
     "blog": "",
     "location": types.optional(types.maybeNull(types.string), null),
     "public_repos": types.number,
-    "followers": types.number
+    "followers": types.number,
   })
   .actions(self => ({
     changeLogin(newLogin) {
