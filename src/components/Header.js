@@ -4,41 +4,35 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import styles from "../assets/app.module.scss";
 import { observer } from "mobx-react";
+import Logo from "../assets/logo.svg";
 
 class Header extends Component {
-  handleChange = event => {
-    this.props.userList.login = event.target.value;
+  handleSubmit = event => {
+    event.preventDefault();
+    this.props.userList.addApi(event.target.login.value);
   };
 
-  search(event) {
-    const termToSearch = this.props.userList.login;
-    this.props.userList.addApi(termToSearch)
-    event.preventDefault();
-  }
-
   render() {
-    const { userList } = this.props;
     return (
       <Grid container className={styles.root} justify="center">
         <Grid container className={styles.header} justify="center">
           <header id="main-header" className={styles.header}>
             <div className={styles.flexCenter}>
-              <img className={styles.logo} alt="logo" src="../../logo.svg" />
+              <img className={styles.logo} alt="logo" src={Logo} />
               <div className={`${styles.addSection} ${styles.flexCenter}`}>
-                <form onSubmit={this.search.bind(this)}>
-                <TextField
-                  className={styles.userInput}
-                  label="Add a user"
-                  value={userList.login}
-                  onChange={this.handleChange}
-                ></TextField>
-                <Button
-                  variant="contained"
-                  className={styles.addButton}
-                  type="submit"
-                >
-                  Add
-                </Button>
+                <form onSubmit={this.handleSubmit}>
+                  <TextField
+                    className={styles.userInput}
+                    label="Add a user"
+                    name="login"
+                  ></TextField>
+                  <Button
+                    variant="contained"
+                    className={styles.addButton}
+                    type="submit"
+                  >
+                    Add
+                  </Button>
                 </form>
               </div>
             </div>

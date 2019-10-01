@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import Header from "./Header";
 import UsersView from "./UsersView";
 import styles from "../assets/app.module.scss";
+import { inject, observer } from "mobx-react"
+
 
 class App extends Component {
   render() {
@@ -14,4 +16,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default inject("userList")(observer(App));

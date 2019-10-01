@@ -1,5 +1,5 @@
 import { types, getParent, destroy, flow } from "mobx-state-tree";
-import { Api } from "../services/Api"
+import { getUser } from "../services/Api"
 
 
 export const User = types
@@ -58,16 +58,10 @@ export const Users = types
       destroy(user)
     },
     addApi: flow(function* addApi(value){
-      try{ var user = value;
-        const profile = yield Api.get(`/users/${user}`, {
-          auth: {
-            username: "testvoxus",
-            password: "258webVOXUS"
-          }
-        });
-        self.users.unshift(profile.data)
+      try{ var user = yield getUser(value)
+        self.users.unshift(user)
       } catch {
-        alert(`Usuário ${user} Inválido`);
+        alert(`User: ${user} not found`);
       }
   })
   }))

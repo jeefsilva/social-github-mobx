@@ -1,66 +1,80 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import App from "./components/App";
-
+import Routes from "./routes";
+import { Provider } from "mobx-react";
 import { onSnapshot, destroy, getSnapshot } from "mobx-state-tree";
-
 import { Users } from "./models/Users";
-
+import { Repos } from "./models/Repos";
 import * as serviceWorker from "./serviceWorker";
 
 const localStorageKey = "social-github-mobx";
 
 var initialState = localStorage.getItem(localStorageKey)
-? JSON.parse(localStorage.getItem(localStorageKey))
-: {
-  users: [
+  ? JSON.parse(localStorage.getItem(localStorageKey))
+  : {
+      users: [
+        {
+          login: "roberto",
+          id: 3,
+          avatar_url: "https://avatars0.githubusercontent.com/u/1?v=4",
+          html_url: "https://github.com/jeefsilva",
+          name: "Jefferson Silva",
+          company: "",
+          blog: "http://teste.com.br",
+          location: "São Paulo",
+          public_repos: 6,
+          followers: 1
+        },
+        {
+          login: "roberto",
+          id: 3,
+          avatar_url: "https://avatars0.githubusercontent.com/u/1?v=4",
+          html_url: "https://github.com/jeefsilva",
+          name: "Jefferson Silva",
+          company: "",
+          blog: "http://teste.com.br",
+          location: "São Paulo",
+          public_repos: 6,
+          followers: 1
+        },
+        {
+          login: "roberto",
+          id: 3,
+          avatar_url: "https://avatars0.githubusercontent.com/u/1?v=4",
+          html_url: "https://github.com/jeefsilva",
+          name: "Jefferson Silva",
+          company: "",
+          blog: "http://teste.com.br",
+          location: "São Paulo",
+          public_repos: 6,
+          followers: 1
+        },
+        {
+          login: "roberto",
+          id: 3,
+          avatar_url: "https://avatars0.githubusercontent.com/u/1?v=4",
+          html_url: "https://github.com/jeefsilva",
+          name: "Jefferson Silva",
+          company: "",
+          blog: "http://teste.com.br",
+          location: "São Paulo",
+          public_repos: 6,
+          followers: 1
+        }
+      ]
+    };
+
+var repoState = {
+  repos: [
     {
-      login: "roberto",
-      id: 3,
-      avatar_url: "https://avatars0.githubusercontent.com/u/1?v=4",
-      html_url: "https://github.com/jeefsilva",
-      name: "Jefferson Silva",
-      company: "",
-      blog: "http://teste.com.br",
-      location: "São Paulo",
-      public_repos: 6,
-      followers: 1
+      name: "Repo teste",
+      stargazers_count: 200,
+      language: "JavaScript"
     },
     {
-      login: "roberto",
-      id: 3,
-      avatar_url: "https://avatars0.githubusercontent.com/u/1?v=4",
-      html_url: "https://github.com/jeefsilva",
-      name: "Jefferson Silva",
-      company: "",
-      blog: "http://teste.com.br",
-      location: "São Paulo",
-      public_repos: 6,
-      followers: 1
-    },
-    {
-      login: "roberto",
-      id: 3,
-      avatar_url: "https://avatars0.githubusercontent.com/u/1?v=4",
-      html_url: "https://github.com/jeefsilva",
-      name: "Jefferson Silva",
-      company: "",
-      blog: "http://teste.com.br",
-      location: "São Paulo",
-      public_repos: 6,
-      followers: 1
-    },
-    {
-      login: "roberto",
-      id: 3,
-      avatar_url: "https://avatars0.githubusercontent.com/u/1?v=4",
-      html_url: "https://github.com/jeefsilva",
-      name: "Jefferson Silva",
-      company: "",
-      blog: "http://teste.com.br",
-      location: "São Paulo",
-      public_repos: 6,
-      followers: 1
+      name: "Repo teste",
+      stargazers_count: 200,
+      language: "JavaScript"
     }
   ]
 };
@@ -85,30 +99,34 @@ function createUserList(snapshot) {
   return store;
 }
 
-
 let userList = Users.create(initialState);
-
+let userRepo = Repos.create(repoState);
 
 onSnapshot(userList, snapshot => {
-  localStorage.setItem("users_list", JSON.stringify(snapshot))
-})
+  localStorage.setItem("users_list", JSON.stringify(snapshot));
+});
 
-function renderApp(App, store) {
-  ReactDOM.render(<App userList={store} />, document.getElementById("root"));
+function renderApp(App, store, repo) {
+  ReactDOM.render(
+    <Provider userList={store} userRepo={repo}>
+      <App />
+    </Provider>,
+    document.getElementById("root")
+  );
 }
 
-renderApp(App, createUserList(initialState));
+renderApp(Routes, createUserList(initialState), userRepo);
 
 // Connect HMR
 if (module.hot) {
   module.hot.accept(["./models/Users"], () => {
     // Store definition changed, recreate a new one from old state
-    renderApp(App, createUserList(getSnapshot(store)));
+    renderApp(Routes, createUserList(getSnapshot(store)));
   });
 
   module.hot.accept(["./components/App"], () => {
     // Componenent definition changed, re-render app
-    renderApp(App, store);
+    renderApp(Routes, store);
   });
 }
 
