@@ -10,7 +10,7 @@ class App extends Component {
     return (
       <div className={styles.flexColumnCenter}>
         <Header userList={this.props.userList} />
-        <UsersView userList={this.props.userList} />
+        <UsersView userList={this.props.userList}/>
       </div>
     );
   }

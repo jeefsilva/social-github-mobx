@@ -25,7 +25,7 @@ class UserView extends Component {
             {" "}
             {user.login}
           </Typography>
-          <Link rel="noopener noreferrer" to={`/repos/${user.login}`}>
+          <Link rel="noopener noreferrer" to={`/repos/${user.login}`} onClick={user.showRepos}>
             <Icon className={styles.icon}>account_circle</Icon>
           </Link>
         </div>
@@ -99,6 +99,7 @@ class UserView extends Component {
         </div>
       </Paper>
     );
+    
   }
 
   renderEditable() {
@@ -125,6 +126,8 @@ class UserView extends Component {
     applySnapshot(this.props.user, getSnapshot(this.state.clone));
     this.setState({ isEditing: false, clone: null });
   };
+
+ 
 }
 
 export default observer(UserView);

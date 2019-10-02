@@ -7,8 +7,8 @@ import { observer } from "mobx-react";
 const ReposView = ({ userRepo }) => (
   <Grid container className={`${styles.app} ${styles.flexColumnCenter}`}>
     <Grid container className={`${styles.app} ${styles.flexWrap}`}>
-      {userRepo.repos.map((repo, idx) => (
-        <RepoView key={idx} repo={repo} />
+      {userRepo.repos.repos.map((repo, idx) => (
+        <RepoView key={idx} repo={repo}/>
       ))}
     </Grid>
   </Grid>

@@ -1,17 +1,19 @@
-import { types, getParent, destroy, flow } from "mobx-state-tree";
+import { types, getParent, destroy, flow, getEnv } from "mobx-state-tree";
 import { getUser } from "../services/Api"
-
+import { Repos } from "./Repos"
+ 
 
 export const User = types
   .model({
     "login": types.string,
     "avatar_url": "",
     "html_url": "",
-    "name": types.optional(types.maybeNull(types.string), null),
+    "name": types.maybeNull(types.string),
     "blog": "",
-    "location": types.optional(types.maybeNull(types.string), null),
+    "location": types.maybeNull(types.string),
     "public_repos": types.number,
     "followers": types.number,
+    "repos": types.optional(Repos, () => Repos.create())
   })
   .actions(self => ({
     changeLogin(newLogin) {
@@ -40,6 +42,9 @@ export const User = types
     },
     remove() {
       getParent(self, 2).remove(self)
+    },
+    showRepos() {
+      self.repos.addApi()
     }
   }));
 
@@ -57,16 +62,19 @@ export const Users = types
     remove(user) {
       destroy(user)
     },
-    addApi: flow(function* addApi(value){
+    addApi: flow(function* (value){
       try{ var user = yield getUser(value)
         self.users.unshift(user)
       } catch {
-        alert(`User: ${user} not found`);
+        getEnv('anyNotificationLibrary').notify(`User: ${user} not found`)
       }
   })
   }))
   .views(self => ({
       get totalUser() {
           return self.users.length
+      },
+      getUserByName(login) {
+        return self.users.filter(user => user.login === login)[0]
       }
   }))
