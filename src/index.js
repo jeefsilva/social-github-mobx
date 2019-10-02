@@ -4,7 +4,6 @@ import Routes from "./routes";
 import { Provider } from "mobx-react";
 import { onSnapshot, destroy, getSnapshot } from "mobx-state-tree";
 import { Users } from "./models/Users";
-import { Repos } from "./models/Repos";
 import * as serviceWorker from "./serviceWorker";
 
 const localStorageKey = "social-github-mobx";
@@ -185,22 +184,21 @@ function createUserList(snapshot) {
 }
 
 let userList = Users.create(initialState);
-let userRepo = Repos.create();
 
 onSnapshot(userList, snapshot => {
   localStorage.setItem("users_list", JSON.stringify(snapshot));
 });
 
-function renderApp(App, store, repo) {
+function renderApp(App, store) {
   ReactDOM.render(
-    <Provider userList={store} userRepo={repo}>
+    <Provider userList={store}>
       <App />
     </Provider>,
     document.getElementById("root")
   );
 }
 
-renderApp(Routes, createUserList(initialState), userRepo);
+renderApp(Routes, createUserList(initialState));
 
 // Connect HMR
 if (module.hot) {

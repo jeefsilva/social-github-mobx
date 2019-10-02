@@ -10,7 +10,6 @@ class Repos extends Component {
     const result = this.props.userList.getUserByName(login)
     return (
       <div className={styles.flexColumnCenter}>
-        <h1>{login}</h1>
         <ReposView userRepo={result}/>
       </div>
     );
