@@ -1,4 +1,5 @@
-import { types } from "mobx-state-tree";
+import { types, flow } from "mobx-state-tree";
+import { getRepos } from "../services/Api"
 
 export const Repo = types
   .model({
@@ -10,4 +11,19 @@ export const Repo = types
   export const Repos = types
   .model({
     repos: types.optional(types.array(Repo), []),
-  });
+  })
+  .actions(self => ({
+    add(repo) {
+      self.repos.unshift(repo);
+    },
+    addUsers(repo) {
+      self.repos.push(...repo)
+    },
+    addApi: flow(function* addApi(value){
+      try{ var repo = yield getRepos(value)
+        self.repos.push(...repo)
+      } catch {
+        alert(`Reposistories for user ${repo} not found`);
+      }
+  })
+  }))

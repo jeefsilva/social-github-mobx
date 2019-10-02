@@ -6,7 +6,8 @@ import Icon from "@material-ui/core/Icon";
 import styles from "../assets/app.module.scss";
 import UserEdit from "./UserEdit";
 import { clone, getSnapshot, applySnapshot } from "mobx-state-tree";
-
+import { Link } from "react-router-dom";
+ 
 class UserView extends Component {
   constructor() {
     super();
@@ -24,9 +25,9 @@ class UserView extends Component {
             {" "}
             {user.login}
           </Typography>
-          <a rel="noopener noreferrer" href={user.html_url} target="_blank">
+          <Link rel="noopener noreferrer" to={`/repos/${user.login}`}>
             <Icon className={styles.icon}>account_circle</Icon>
-          </a>
+          </Link>
         </div>
 
         <img className={styles.avatar} alt="teste" src={user.avatar_url} />

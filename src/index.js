@@ -61,23 +61,20 @@ var initialState = localStorage.getItem(localStorageKey)
           public_repos: 6,
           followers: 1
         }
+      ],
+      repos: [
+        {
+          name: "Repo teste",
+          stargazers_count: 200,
+          language: "JavaScript"
+        },
+        {
+          name: "Repo teste",
+          stargazers_count: 200,
+          language: "JavaScript"
+        }
       ]
     };
-
-var repoState = {
-  repos: [
-    {
-      name: "Repo teste",
-      stargazers_count: 200,
-      language: "JavaScript"
-    },
-    {
-      name: "Repo teste",
-      stargazers_count: 200,
-      language: "JavaScript"
-    }
-  ]
-};
 
 let store;
 let snapshotListener;
@@ -100,7 +97,7 @@ function createUserList(snapshot) {
 }
 
 let userList = Users.create(initialState);
-let userRepo = Repos.create(repoState);
+let userRepo = Repos.create(initialState);
 
 onSnapshot(userList, snapshot => {
   localStorage.setItem("users_list", JSON.stringify(snapshot));

@@ -8,8 +8,8 @@ import Repos from "./components/Repos/Repos"
 const Routes = () => (
     <BrowserRouter>
     <Switch>
-        <Route exact path="/" component={App} />
-        <Route path="/repos" component={Repos}/>
+        <Route exact path="/" component={App}/>
+        <Route path="/repos/:login" component={Repos}/>
     </Switch>
     </BrowserRouter>
 )
